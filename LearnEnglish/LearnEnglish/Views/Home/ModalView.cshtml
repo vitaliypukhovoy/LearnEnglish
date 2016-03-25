@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}    
+@model  LearnEnglish.Models.SubmitNewWord
+
+    <div class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Do you want to add word?</h4>
+                    </div>
+                @using (Html.BeginForm("CreateWord", "Home", FormMethod.Post)){ 
+                 <div  class="modal-body">
+                     <div class="row">                       
+                         <label class="col-md-3 text-nowrap text-right">Word</label>   
+                         <span class="col-md-6"> @Html.TextBoxFor(a => a.Word, new {@class="form-control", @placeholder="word" })</span>
+                     </div>
+                     <div class="row">
+                         <label class="col-md-3 text-nowrap text-right">Translate</label>
+                         <span class="col-md-6">@Html.TextBoxFor(a => a.Translate, new { @class = "form-control", @placeholder = "translate" })</span>
+                     </div>
+                     <div class="row">
+                         <label class="col-md-3 text-nowrap text-right">Transcription</label>
+                         <span class="col-md-6">@Html.TextBoxFor(a => a.Transcription, new { @class = "form-control", @placeholder = "transcription" })</span>
+                     </div>  
+                     <div class="row">
+                         <label class="col-md-3 text-nowrap text-right">Toppic</label>
+                         <span class="col-md-8">
+                             @Html.DropDownList("IdTopic", null, string.Empty, new { @class = "btn btn-default dropdown-toggle" })
+                         </span>
+                     </div>                     
+                   </div>                
+                    <div class="modal-footer">
+                        <div class="row">
+                            <input type="submit" value="OK"class="btn btn-primary col-md-2 col-md-offset-5" />
+                            @*<button type="button" class="btn btn-primary col-md-2 col-md-offset-5" onclick="$(this).closest('.modal').modal('hide','Confirm')">
+                                <span class="glyphicon glyphicon-ok">Add word</span>
+                            </button>*@
+                            <button type="button" class="btn btn-danger col-md-2" data-dismiss="modal">
+                                <span class="glyphicon glyphicon-remove-circle">Cancel</span>
+                            </button>
+                            </div>
+                        </div>
+                }                   
+            </div>
+        </div>
+    </div>

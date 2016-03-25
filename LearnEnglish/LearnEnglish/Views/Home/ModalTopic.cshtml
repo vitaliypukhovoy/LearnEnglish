@@ -1,0 +1,34 @@
+﻿@{ 
+   Layout = null;
+}
+@model  LearnEnglish.Models.SubmitNewTopic
+
+<div class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Do you want to add topic?</h4>
+            </div>
+            @using (Html.BeginForm("CreateTopic", "Home", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <label class="col-md-3 text-nowrap text-right">Topic</label>
+                        <span class="col-md-6"> @Html.TextBoxFor(a => a.TopicName, new { @class = "form-control", @placeholder = "topic" })</span>
+                    </div>                                       
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <input type="submit" value="OK" class="btn btn-primary col-md-2 col-md-offset-5" />
+                        @*<button type="button" class="btn btn-primary col-md-2 col-md-offset-5" onclick="$(this).closest('.modal').modal('hide','Confirm')">
+                                <span class="glyphicon glyphicon-ok">Add word</span>
+                            </button>*@
+                        <button type="button" class="btn btn-danger col-md-2" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove-circle">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
