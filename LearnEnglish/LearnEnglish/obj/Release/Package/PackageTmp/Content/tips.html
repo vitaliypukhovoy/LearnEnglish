@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <style type="text/css">
+        .ui-tooltip {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font: bold 14px"Helvetica Neue", Sans-Serif;
+            text-transform: uppercase;
+            box-shadow: 0 0 7px black;
+        }
+
+            .ui-tooltip.warning {
+                color: #E3E8F7;
+                background: #D94AA4;
+            }
+
+            .ui-tooltip.danger {
+                color: #212942;
+                background: #CABA75;
+            }
+
+        a.tips {
+            float: left;
+            margin: 0 10px;
+            text-decoration: none;
+            font: Sans-Serif;
+        }
+
+        body {
+            background-color: #eee;
+            padding: 30px;
+        }
+
+
+    </style>
+
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/css/jquery.ui.tooltip.min.css" rel="stylesheet" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('a.tips').each(function () {
+                var severity = $(this).data('severity');
+                $(this).tooltip({
+                    content: function () {
+                        return '<em>' + $(this).attr('title') + '</em>';
+                    },
+                    tooltipClass: severity,
+                    show: "slideDown",
+                    open: function (event, ui) {
+                        ui.tooltip.hover(function () {
+                            $(this).fadeTo("slow", 0.5);
+                        });
+                    }
+                });
+            });
+        });        
+    </script>
+
+
+</head>
+<body>
+
+    <div id="container">
+        <a href="#" title="Tooltip 1" class="tips" data-severity="warning">(Warning)</a>
+        <a href="#" title="Tooltip 2" class="tips" data-severity="danger">(Danger)</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DataWords-Web.config Connection String" description="DataWords Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;Initial Catalog=aspnet-LearnEnglish-20160107151916;Integrated Security=SSPI;AttachDBFilename=|DataDirectory|\DataWords.mdf" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\vv\\Project\\LearnEnglish\\LearnEnglish\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DataWords']/@connectionString" />
+  </parameter>
+</parameters>

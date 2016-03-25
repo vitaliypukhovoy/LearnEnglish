@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>ToolTipStatus</id>
+    <version>1.0.1</version>
+    <title>ToolTip Status</title>
+    <authors>Maxwolf</authors>
+    <owners>Maxwolf</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Useful for MDI applications where you want top level forms to show their tips on the parent.</description>
+    <summary>Allows for easy tooltips to be added to any control that you can hook and display.</summary>
+    <copyright>MIT</copyright>
+    <language>en-US</language>
+  </metadata>
+</package>

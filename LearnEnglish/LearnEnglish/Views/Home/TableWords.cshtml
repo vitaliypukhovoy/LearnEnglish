@@ -1,0 +1,46 @@
+﻿@model  IEnumerable<LearnEnglish.Models.NewWord>
+ <script>
+     $(function () {
+
+         $('tr.tip').each(function () {
+             var severity = $(this).data('severity');
+       //      data-severity="danger">
+             $(this).tooltip({
+                 content: function () {
+                     return   $(this).attr('title') ;
+                 },
+                 placement: 'left',
+                 tooltipClass: severity,
+                 show: "slideDown",
+                 open: function (event, ui) {
+                     ui.tooltip.hover(function () {
+                         $(this).fadeTo("slow", 0.2);
+                     });
+                 }
+             });
+         });
+     });
+ </script>
+<div id="container">
+    <table id="result" data-toggle="tooltip" class="table table-responsive table-hover">
+
+        @foreach (var item in Model)
+{
+    <tr class="tip">
+        <td>@item.Id</td>
+        <td>@item.Word</td>
+        <td>@item.Translate</td>
+        <td>@item.Transcription</td>
+        <td><button class="btn btn-default"><span class="glyphicon glyphicon-volume-up"></span></button></td>
+        <td><button class="btn btn-default"  title="
+    <img src='../Content/themes/base/images/cat.png' style='width:150px;' alt='cat'>
+    
+
+    ">info
+</button></td>
+        <td><button class="btn btn-default"><input type="checkbox" /></button></td>
+        
+    </tr>
+}
+    </table>
+</div>

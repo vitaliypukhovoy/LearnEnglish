@@ -1,0 +1,258 @@
+﻿@{ 
+       
+}
+@model LearnEnglish.Models.NewWord
+
+
+<style type="text/css">
+    h2 {
+        font: bold 28px"Helvetica Neue", Sans-Serif;
+        text-transform: uppercase;
+    }
+    td {
+        color: darkblue;
+        font-weight: 700;
+    }
+    #success,#error,#error1 {
+      display:none;
+    }
+
+    .panel-heading {
+        background-color: maroon;
+    }
+
+    .ui-tooltip {
+      //  top: -40px;
+       left: 40%;
+        padding: 30px 40px;
+        border-radius: 20px;
+        font: bold 12px"Helvetica Neue", Sans-Serif;
+        text-transform: lowercase;
+        box-shadow: 0 0 7px black;
+        z-index: 40;     
+        border: 2px solid white;
+      
+    }
+
+        .ui-tooltip.warning {
+            color: #E3E8F7;
+            background: #D94AA4;
+        }
+
+        .ui-tooltip.danger {
+            top: 100px;
+            color: #212942;
+            background: #CABA75;
+        }
+
+    a.tip {
+        float: right;
+        margin: 0 40px;
+        text-decoration: none;
+        font: Sans-Serif;
+    }
+
+    body {
+        background-color: #eee;
+        padding: 15px;
+    }
+
+    .ui-helper-hidden-accessible {
+    display:none;
+    }
+    
+</style>
+
+
+<script type="text/javascript">
+       
+        $(function () {
+            var container = $("[data-dialog-container=\"" + "@Url.Action("ModalView")" + "\"]");
+            var newContainer = $('<div></div>')
+            newContainer.attr('data-dialog-container', "@Url.Action("ModalView","Home")");
+            var conteiner= $('body').append(newContainer);
+            $('#button1').click(function () {
+               // hider();
+                $.post("@Url.Action("ModalView")", function (data,status) {                
+                    conteiner.html(data);
+                    var dialog = $('.modal', conteiner);
+                    dialog.modal('show');
+                });
+            });
+        });
+
+
+    $(function(){
+        var container = $("[data-dialog-container=\"" + "@Url.Action("ModalTopic")" + "\"]");
+        var newContainer = $('<div></div>')
+        newContainer.attr('data-dialog-container', "@Url.Action("ModalTopic", "Home")");
+        var conteiner= $('body').append(newContainer);
+        $('#button5').click(function () {
+            // hider();
+            $.post("@Url.Action("ModalTopic")", function (data,status) {                
+                conteiner.html(data);
+                var dialog = $('.modal', conteiner);
+                dialog.modal('show');
+            });
+        });
+        
+        
+    });
+ 
+        $(function () {
+            $('#button2').click(function () {
+                var i = 0; 
+                var items = [];
+                //var items = [1, 2, 3, 4, 5];
+                var item = {
+                    model: []
+                };
+
+                $('#error').hide();
+                $('tr').each(function () {
+                    if ($(this).find('td input:checked').val() !== undefined) {                     
+                        i++;
+                        items.push($(this).find('td:first').text());
+                    }                 
+                });
+                if (i === 0)
+                {
+                    $('#error1').show();
+                }
+                else {    
+                    // hider();
+                    $('#error1').hide();
+                    $('#success').show();
+                    //alert(items);
+                    $.ajax({                        
+                        url:"@Url.Action("Remove")", 
+                        data:$.param({id:items},true), 
+                        success:function (data, status) {                           
+                            $('tr').each(function () {
+                                if ($(this).find('td input:checked').val() !== undefined)
+                                $(this).remove();
+                            }
+                            );
+                        }
+                    });
+                };
+
+            });
+        });
+
+        $(function () {
+            var fl = '@ViewBag.flag';
+
+            if(fl==1){
+                $('#success').show();
+            }
+            else if (fl == 2)
+            {
+                $('#error').show()
+            }
+        });
+
+    function hider() {
+        ('#error1').hide();
+        $('#error').hide();
+    };
+
+
+
+    $(document).ready(function () {
+        $('#button3').click(function () {
+            $('tr').each(function () {               
+                $(this).find('td input').attr('checked', true); //prop('checked',true);
+
+            });
+        });
+
+        //$('[data-toggle="tooltip"]').hover(function () {
+        //    $('.tooltip-inner').css('min-width', '400px');
+        //    $('.tooltip-inner').css('color', 'red');
+        //});       
+    
+        $('#button4').click(function () {
+            $('tr').each(function () {
+               // if($(this).find('td input:checked').val()!==undefined)                
+                    //alert($(this).find('td input[type="checkbox"]:checked').val());
+                $(this).find('td input:checked').attr('checked', false); //prop('checked',true);
+                                 
+            });
+        });
+    });
+   
+</script>
+
+
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading">       
+        <h2><span class="label label-warning">New words</span></h2><span class="">
+            <div id="success" class="alert alert-success" role="alert">The word added successfully </div>
+            <div id="error" class="alert alert-danger" role="alert"> Occurred error </div>
+            <div id="error1" class="alert alert-danger" role="alert"> Please,checked item which you need </div>
+
+            <span class="col-md-1">
+                <button id="button1" type="button" class="btn btn-success">  <span class="glyphicon glyphicon-floppy-disk">Add word </span> </button>
+            </span>
+            <span class="col-md-1 ">
+                <button id="button5" type="button" class="btn btn-warning"> Add topic</button>
+            </span>
+            <span class="col-md-3 ">
+                <button id="button2" type="button" class="btn btn-danger">  <span class="glyphicon glyphicon-trash">Remove </span> </button>               
+                </span>  
+             <span class="col-md-4 ">
+                  @using (Ajax.BeginForm(new AjaxOptions
+                  {
+                      Url = Url.Action("TableWords","Home"),
+                      HttpMethod="Post",
+                      InsertionMode=InsertionMode.Replace,                      
+                      UpdateTargetId = "result" }))
+                      {
+                      @Html.DropDownList("IdTopic", null, "Select topic", new { @class = "btn btn-default dropdown-toggle" })
+                    //    @Html.DropDownList("Id", new SelectList(new[]{"1","2","3"})) //null, "Select topic", new { @class = "btn btn-success dropdown-toggle" })
+                        //  new SelectList(new[]{"1","2","3"}))
+                       
+        @*<input type="submit" class="btn btn-default" value="send" />*@
+                 <button class="btn btn-default"> <span class="glyphicon glyphicon-download-alt"> send</span></button>
+                
+                      }
+             </span>
+                                                       
+                    <span class="col-md-1 col-md-offset-1 ">
+                    <button id="button3" class="btn btn-default glyphicon glyphicon-check"></button>
+                    </span>
+                                                                       <span class="col-md-1 ">
+                                                                           <button id="button4" class="btn btn-default glyphicon glyphicon-unchecked"></button>
+                                                                       </span>       
+        <br />
+       <br />
+    </div>
+
+    <!-- Table -->
+
+
+    @Html.Action("TableWords", "Home", new { id = Model })
+
+</div>
+
+
+@*<a href="#" data-toggle="tooltip" class="myTooltip">tip</a>*@
+
+
+@*<a href="#" data-toggle="tooltip" data-placement="right" data-original-title="some text">
+    <span class="glyphicon glyphicon-question-sign"></span>
+</a>*@
+
+@*<div id="container">
+    <a href="#" title="Tooltip 1" class="tips" data-severity="warning">(Warning)</a>
+    <a href="#" title="Tooltip 2" class="tips" data-severity="danger">(Danger)</a>
+</div>*@
+
+@*<ul class="dropdown-menu" aria-labelledby="dropdownMenu4">
+    <li><a href="#">Regular link</a></li>
+    <li class="disabled"><a href="#">Disabled link</a></li>
+    <li><a href="#">Another link</a></li>
+</ul>*@
+

@@ -1,0 +1,40 @@
+﻿@{
+   
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index2</title>
+
+    <script>
+        $(document).ready(function(){
+
+            $('a.tips').each(function () {
+              //  var severity = $(this).data('severity');
+                $(this).tooltip({
+                    //content: function () {
+                    //    return '<em>' + $(this).attr('title') + '</em>';
+                    //},
+                ///    tooltipClass: severity,
+                //     show: "slideDown",
+                    open: function (event, ui) {
+                        ui.tooltip.hover(function () {
+                            $(this).fadeTo("slow", 0.5);
+                        });
+                    }
+                });
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    <div id="container">
+        <a href="#" title="Tooltip 1" class="tips" data-severity="warning">(Warning)</a>
+        <a href="#" title="Tooltip 2" class="tips" data-severity="danger">(Danger)</a>
+    </div>
+</body>
+</html>
